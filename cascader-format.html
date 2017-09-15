@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <title>
     
-  Archives - snacks
+  Cascader Format - snacks
   
 
   </title>
@@ -82,62 +82,107 @@ $(document).ready(function(event) {
 
 </nav>
   <div id="main">
-    <div id="content">  <div>
-<article role="article">
-  <header>
-    <h1 class="entry-title">Blog Archive</h1>
-  </header>
-	<div id="blog-archives">
-	
-		 
-		  	<h2>2017</h2>
+    <div id="content"> 
+<div>
+	<article class="hentry" role="article">
+	<header>
+			  	<h1 class="entry-title">Cascader Format</h1>
+				<p class="meta"><time datetime="2017-09-15T12:20:07+08:00" pubdate data-updated="true">2017/9/15 12:20 下午</time></p>
+			 </header>
+		  	<div class="entry-content">
+			  	<h3 id="toc_0">功能</h3>
+
+<p>将无序的<code>[Object Array]</code>类型转化为级联选择（Cascader）的数组</p>
+
+<span id="more"></span><!-- more -->
+
+<h3 id="toc_1">数据结构</h3>
+
+<pre><code class="language-js">const a = [{
+  id: 1000,
+  value: &#39;IT-123&#39;
+}, {
+  id: 1001,
+  value: &#39;IT-456&#39;
+}, {
+  id: 1002,
+  value: &#39;IT-789&#39;
+}, {
+  id: 1003,
+  value: &#39;EC-000&#39;
+}, {
+  id: 1005,
+  value: &#39;EC-111&#39;
+}, {
+  id: 1006,
+  value: &#39;EC111&#39;,
+}];
+</code></pre>
+
+<h3 id="toc_2">原理</h3>
+
+<p>通过寻找数组的相同点，构造哈希匹配来实现，减少复杂度和寻址效率。</p>
+
+<pre><code class="language-js">const b = {};
+for (let i = 0; i &lt; a.length; i++) {
+  const id = a[i].value.split(&#39;-&#39;);
+  if (!b[id[0]]) b[id[0]] = [];
+  b[id[0]].push({
+    value: id[1] || id[0],
+    label: a[i].id,
+  });;
+}
+
+const cascader = Object.keys(b).map(item =&gt; ({
+  label: item,
+  value: item,
+  children: b[item],
+}));
+
+console.log(cascader);
+</code></pre>
+
+<h3 id="toc_3">Screenshot</h3>
+
+<p><img src="media/15054492070408/15054495612159.jpg" alt=""/></p>
+
+			</div>
+
 		
-		
-			<article>
-				<h1><a href="cascader-format.html">Cascader Format</a></h1>
-				<time datetime="2017-09-15T12:20:07+08:00" pubdate><span class='month'>9月</span> <span class='day'>15</span> <span class='year'>2017</span></time>
-				<footer>
-				  <span class="categories">posted in 
-				  
-					    <a class='category' href='javascript.html'>javascript</a>&nbsp;
-				   
-				  </span>
-				</footer>
-			</article>
- 	
-		
-		
-			<article>
-				<h1><a href="text-overflow-ellipsis.html">超出隐藏显示省略号</a></h1>
-				<time datetime="2017-09-08T15:18:51+08:00" pubdate><span class='month'>9月</span> <span class='day'>08</span> <span class='year'>2017</span></time>
-				<footer>
-				  <span class="categories">posted in 
-				  
-					    <a class='category' href='css.html'>css</a>&nbsp;
-				   
-				  </span>
-				</footer>
-			</article>
- 	
-		
-		
-			<article>
-				<h1><a href="duplicate-removal.html">数组去重</a></h1>
-				<time datetime="2017-09-08T14:59:10+08:00" pubdate><span class='month'>9月</span> <span class='day'>08</span> <span class='year'>2017</span></time>
-				<footer>
-				  <span class="categories">posted in 
-				  
-					    <a class='category' href='javascript.html'>javascript</a>&nbsp;
-				   
-				  </span>
-				</footer>
-			</article>
- 	 
+	  
+		<footer>
+		 <p class="meta">
+
+			<strong>Categories:</strong>&nbsp; 
+			<span class="categories">
+			
+			    <a class='category' href='javascript.html'>javascript</a>&nbsp;
+			 
+			</span>
+		    </p>
+		    <p class="meta">
+		      
+		 </p>
+	    
+		<div class="sharing">
+		  
+          
+
+          
 
 		</div>
-</article>
 
-</div> <aside class="sidebar"> 
+	    <p class="meta">
+	    
+	    
+	        <a class="basic-alignment right" href="text-overflow-ellipsis.html" 
+	        title="Next Post: 超出隐藏显示省略号">超出隐藏显示省略号 &raquo;</a>
+	    
+	    </p>
+	  </footer>
+	</article>
+</div>
+ <aside class="sidebar"> 
 
 	<section>
 	  <h1>Categories</h1>
